@@ -1,4 +1,5 @@
-library(RCurl)
+#install.packages("RCurl")    
+library("RCurl")
 
 if (!file.info('UCI HAR Dataset')$isdir) {
   dataFile <- 'https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip'
@@ -47,4 +48,5 @@ write.table(data, './Project/merged.txt', row.names = F)
 average.df <- aggregate(x=data, by=list(activities=data$activity, subj=data$subject), FUN=mean)
 average.df <- average.df[, !(colnames(average.df) %in% c("subj", "activity"))]
 str(average.df)
-write.table(average.df, './Project/average.txt', row.names = F)
+
+write.table(average.df, file = "sensordata_avg_by_subject.txt", row.name=FALSE)
